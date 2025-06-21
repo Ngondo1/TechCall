@@ -5,32 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>techCall — Trusted Electrical Help in Nairobi</title>
 
-  <!-- ====== BASE STYLES ====== -->
   <style>
     :root {
       --grey-bg: #f2f3f5;
       --brand-red: #e53935;
-      --card-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      --brand-red-dark: #c62828;
+      --card-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
       --radius: 14px;
       --maxw: 1100px;
       font-family: "Segoe UI", Arial, sans-serif;
+      scroll-behavior: smooth;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--grey-bg); color:#333; line-height:1.5; }
 
-    /* ---------- HERO ---------- */
+    header {
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      max-width: var(--maxw);
+      margin: auto;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--brand-red);
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--brand-red); }
+
     .hero {
-      background:url("https://images.unsplash.com/photo-1581090700227-1d4bbf0f3363?auto=format&fit=crop&w=1500&q=80") center/cover no-repeat;
+      background: url("https://images.unsplash.com/photo-1581090700227-1d4bbf0f3363?auto=format&fit=crop&w=1500&q=80") center/cover no-repeat;
       min-height: 92vh;
-      display:flex; align-items:center; justify-content:center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 3rem 1rem;
     }
     .hero-card {
-      width: 100%; max-width: 700px; background:#fff;
-      border-radius: var(--radius); box-shadow: var(--card-shadow);
-      padding: 2rem 2.5rem;
+      width: 100%;
+      max-width: 700px;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 2.5rem;
     }
-    .hero-card h1 { text-align:center; margin-bottom:1.8rem; font-size:1.8rem; }
+    .hero-card h1 { text-align:center; margin-bottom:1.2rem; font-size:1.9rem; }
+    .hero-card p { text-align:center; margin-bottom:1.8rem; color:#555; }
     label { font-weight:600; font-size:0.95rem; margin-bottom:0.4rem; display:block; }
     select, textarea {
       width:100%; padding:0.9rem 1rem; border:1px solid #ccc; border-radius:var(--radius); margin-bottom:1.2rem;
@@ -42,31 +81,36 @@
       background:var(--brand-red); color:#fff; font-weight:700; font-size:1rem; cursor:pointer;
       transition:background 0.25s;
     }
-    button:hover { background:#c62828; }
+    button:hover { background:var(--brand-red-dark); }
 
-    /* ---------- SUB-SECTIONS ---------- */
     section { max-width:var(--maxw); margin:auto; padding:4rem 1rem; }
-    .section-title { font-size:1.6rem; margin-bottom:2rem; text-align:center; }
+    .section-title { font-size:1.7rem; margin-bottom:2rem; text-align:center; }
     .flex { display:flex; flex-wrap:wrap; gap:1.5rem; }
-
-    /* Cards */
     .card {
       background:#fff; border-radius:var(--radius); box-shadow:var(--card-shadow);
       padding:1.5rem; flex:1 1 300px; min-width:260px;
     }
     .card h3 { margin-bottom:0.6rem; }
-    .founders .card { flex:1 1 240px; text-align:center; }
-
     footer { text-align:center; padding:2rem 1rem; font-size:0.85rem; color:#666; }
-    @media (max-width:620px){ .hero-card{padding:1.5rem 1.4rem;} }
   </style>
 </head>
 <body>
 
-<!-- ========== HERO WITH FUNCTIONAL FORM ========== -->
+<header>
+  <nav>
+    <div class="logo">⚡ techCall</div>
+    <ul class="nav-links">
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#founders">Founders</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
 <section class="hero">
   <div class="hero-card">
-    <h1>Describe your issue and find a trusted electrician</h1>
+    <h1>Find a Trusted Electrician in Seconds</h1>
+    <p>Tell us your issue & location — we’ll handle the rest.</p>
 
     <label for="issueType">Issue type</label>
     <select id="issueType">
@@ -94,89 +138,95 @@
   </div>
 </section>
 
-<!-- ========== HOW IT WORKS / ALGORITHM DEMO ========== -->
-<section>
-  <h2 class="section-title">How matching works (first-come-first-serve queue)</h2>
-  <div class="card" id="algoCard">
-    <p>When you press <strong>Search</strong>, the system:</p>
-    <ol style="margin-top:0.8rem; padding-left:1.2rem;">
-      <li>Filters technicians by your <em>issue type</em> and <em>location</em>.</li>
-      <li>Places your request at the <strong>end</strong> of a queue.</li>
-      <li>The first available technician pops the queue and accepts.</li>
+<section id="how">
+  <h2 class="section-title">How matching works (First-Come-First-Serve)</h2>
+  <div class="card">
+    <ol style="padding-left:1.2rem; font-size:1rem;">
+      <li>Filter technicians by <em>issue</em> and <em>location</em>.</li>
+      <li>Place your request at the <strong>end</strong> of a queue.</li>
+      <li>The first available technician picks it and gets notified.</li>
     </ol>
-    <p style="margin-top:1rem;">Open your browser console to watch the queue in action ➡️</p>
+    <p style="margin-top:1rem; font-size:0.9rem; color:#555;">Check your browser console to view queue logic in real time.</p>
   </div>
 </section>
 
-<!-- ========== TOP TECHNICIANS ========== -->
 <section>
   <h2 class="section-title">Our top technicians</h2>
   <div class="flex">
     <div class="card">
-      <h3>Joseph M.</h3>
+      <h3>Ngondo</h3>
       <p>“I treat every job as if it’s my own home.”</p>
     </div>
     <div class="card">
-      <h3>Esther K.</h3>
+      <h3>Kimemia</h3>
       <p>“Trust, discipline, and doing it right the first time.”</p>
     </div>
   </div>
 </section>
 
-<!-- ========== FOUNDERS ========== -->
-<section class="founders">
+<section>
+  <h2 class="section-title">Why techCall?</h2>
+  <div class="card">
+    <ul style="padding-left: 1.5rem; font-size: 1rem;">
+      <li>✅ Verified technicians only — quality and safety first</li>
+      <li>✅ First-come-first-serve logic — no bias, just fairness</li>
+      <li>✅ Built by local experts for Kenyan homes and businesses</li>
+      <li>✅ Mobile-friendly, clean and intuitive interface</li>
+    </ul>
+  </div>
+</section>
+
+<section id="founders">
   <h2 class="section-title">Meet the founders</h2>
   <div class="flex">
     <div class="card">
       <h3>Mr Mike Lucas</h3>
-      <p>35+ yrs electrical engineering.<br>Leads technician verification.</p>
+      <p>35+ years in electrical engineering.<br>Leads technician verification.</p>
     </div>
     <div class="card">
-      <h3>Mr Ngondo Kimemia</h3>
-      <p>Developer &amp; system manager.<br>Keeps techCall running 24/7.</p>
+      <h3>Support team</h3>
+      <p>Developer & system manager.<br>Keeps techCall running 24/7.</p>
     </div>
   </div>
 </section>
 
-<footer>© 2025 techCall Nairobi | All rights reserved.</footer>
+<footer>
+  <p>&copy; 2025 techCall — Built with trust in Nairobi 🇰🇪</p>
+  <p><a href="mailto:support@techcall.ke">support@techCall.ke</a></p>
+</footer>
 
-<!-- ========== INLINE JAVASCRIPT ========== -->
 <script>
-/* ---------------- DATA-STRUCTURE DEMO ----------------
-   We simulate a technician queue. In real life this data
-   would come from the backend; here we keep it in JS to
-   illustrate unit work (queues & algorithmic flow).     */
 class TechnicianQueue {
   constructor(list = []) { this.queue = [...list]; }
   enqueue(tech) { this.queue.push(tech); }
-  dequeue()    { return this.queue.shift(); }
-  view()       { console.table(this.queue); }
+  dequeue() { return this.queue.shift(); }
+  view() { console.table(this.queue); }
 }
 
-// Seed queue with two demo techs
 const techQueue = new TechnicianQueue([
-  {name:'Joseph M.', category:'Household Items',   area:'Karen'},
-  {name:'Esther K.', category:'Power Supply Issue', area:'Westlands'}
+  { name: 'Joseph M.', category: 'Household Items', area: 'Karen' },
+  { name: 'Esther K.', category: 'Power Supply Issue', area: 'Westlands' }
 ]);
 
-// DOM refs
 const issueSel = document.getElementById('issueType');
-const locSel   = document.getElementById('location');
-const descFld  = document.getElementById('desc');
-const btn      = document.getElementById('searchBtn');
+const locSel = document.getElementById('location');
+const descFld = document.getElementById('desc');
+const btn = document.getElementById('searchBtn');
 
-// Simple search handler
 btn.addEventListener('click', () => {
-  const issue = issueSel.value, loc = locSel.value, txt = descFld.value.trim();
-  if(!issue || !loc || !txt) { alert('Fill in all fields'); return; }
+  const issue = issueSel.value;
+  const loc = locSel.value;
+  const txt = descFld.value.trim();
+  if (!issue || !loc || !txt) {
+    alert('Please fill in all fields.');
+    return;
+  }
 
   console.log(`New request → ${issue} / ${loc} : "${txt}"`);
 
-  // Enqueue request as pseudo-technician slot (just to show queue growth)
-  techQueue.enqueue({name:`[REQUEST] ${issue}`, category:issue, area:loc});
+  techQueue.enqueue({ name: `[REQUEST] ${issue}`, category: issue, area: loc });
   techQueue.view();
 
-  // Dequeue next technician to “serve” the request
   const assigned = techQueue.dequeue();
   alert(`"${assigned.name}" assigned! (see console)`);
   techQueue.view();
